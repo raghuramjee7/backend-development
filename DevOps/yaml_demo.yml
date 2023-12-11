@@ -1,0 +1,146 @@
+"key": "you can store key values in YAML"
+
+1: "this is another example"
+
+--- # this tells the seperation of documents
+
+# lists
+- a
+- b
+- c
+
+--- 
+
+
+this_is_another_key:
+  - spacing is important
+  - indentation is done with spaces
+  - all spaces need to be equally away for yaml to work proper
+
+
+---
+
+# the above can be done like this as well
+fruits: [apple, mango] # this is to avoid indentation
+
+---
+
+# or
+{apple : "red", mango: "yellow"}
+
+---
+
+# STRING Examples
+name: raghu
+name: "raghu"
+name: 'raghu'
+
+# write multiple lines
+name: |
+raghu
+ram
+jee
+janapareddy
+
+# write single line in multiple lines (to avoid newlines)
+name: >
+raghu
+ram
+jee
+janapareddy
+
+# other types
+number: 12
+float_num: 12.0
+boolean: No # or n, N, false, False, FALSE, yes, Y, y, Yes, YES
+
+# specify data type
+zero: !!int 0
+positive_num: !!int 40
+exponents: !!int 6.023E23
+negative_num: !!int -100
+binary_num: !!int 0b1100
+octal_num: !!int 0423
+hex_num: !!int 0x55
+comma_numbers: !!int +54_000 # 54,000
+infinite: !!float .inf
+not_a_num: .nan
+boolean: !!bool Yes
+string: !!str 'ok'
+
+
+# null
+middle_name: !!null Null # or null NULL ~
+~: this is a null key
+
+#date time
+date: !!timestamp 2023-10-21 #UTC is default time zone
+
+
+---
+
+# Advanced data types
+
+# Sequence
+student: !!seq
+ - marks
+ - name
+ - roll_no
+
+
+# Nested Squence
+-
+ - a
+ - b
+ - c
+-
+ - d
+ - e
+ - f
+
+# Maps
+!!map
+
+# Nested Maps
+name: raghu
+bio:
+  age: 21
+  location: hyderabad
+
+# Pairs
+name: !!pair
+ - age: 21
+ - age: 22
+# this is like a array of dicts
+
+
+# this is a set
+names: !!set 
+ ? raghu
+ ? ram
+ ? jee
+
+# this is a dictionary
+people: !!omap
+ - Raghu:
+     - name: Raghu Ram Jee
+     - age: 20
+ - Ram:
+     - name: ramjee
+     - age: 21
+
+---
+
+# Anchor example
+
+language: &ln #anchor name
+  name: python
+  version: 3.9
+
+# use anchor
+programmer:
+  alias: ramjeej
+  <<: *ln # use anchor
+  version: 3.8 # overrides anchor variable
+
+... # this tells that the document is ended
