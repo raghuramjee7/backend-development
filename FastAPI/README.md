@@ -108,7 +108,7 @@ project/
 2. We use `SQLAlchemy` as the ORM.
 
 ### SQLALchemy
-1. `pip install sqlalchemy`
+1. `pip install sqlalchemy`, `pip install psycopg2`
 2. SQLAlchemy needs a db driver for the db that we use - postgres, mysql, etc. We need to have this driver seperately. For postgres, we have `psycopg2`. This is already installed from fastapi-all.
 3. We can create a folder for models, and name it *database/* inside have files for *connection.py* and *model.py*.
 4. Basic Code - *connection*
