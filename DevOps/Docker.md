@@ -17,7 +17,7 @@
 ![Alt text](image.png)
 1. VM runs directly on the hardware, and OS is installed.
 2. Container images are run in memory. Compared to VM, containers dont need to boot, they run directly in host OS kernel. They use less memory and space.
-![Alt text](image-1.png)
+![Alt text](images/image-1.png)
 3. We can fit more containers in the same host than VMs.
 
 ## Docker Installation
@@ -42,13 +42,13 @@ There are three main parts in docker
 ### Images Vs Containers
 Images are the templates from which containers are created.
 
-![Alt text](image-2.png)
+![Alt text](images/image-2.png)
 
 ### Dockerfile
 This is a text file listing the steps to build an image.  
 Docker config is stored in a file called `Dockerfile`.  
 This dockerfile describes how the image is supposed to run.
-![Alt text](image-3.png)  
+![Alt text](images/image-3.png)  
 1. The first line is `FROM <something>`. The `<something>` is called the `base image`. This base image represents from where we are building it.  
 ```
 FROM node:20
@@ -88,7 +88,7 @@ Each step in dockerfile is a layer. During build each layer gets cached. If a la
 
 
 ### Volume
-![Alt text](image-4.png)
+![Alt text](images/image-4.png)
 A volume is a logical space where we can dump data from a container. If the container shuts down, the volume will remain the same until the volume is also shut down.  
 **Create a volume** - `docker volume create <volume-name>` - this creates volume inside docker engine.  
 **Delete a volume** - `docker volume rm <volume-name>`  
@@ -96,7 +96,7 @@ A volume is a logical space where we can dump data from a container. If the cont
 **List Volumes** - `docker volume ls`  
 **SSH inside a container** - `docker exec -it <image-id> /bin/bash`  
 **Attach volume to an image** - `docker run -d --name <container-name-we-give> -v <vol-name>:/<folder-path in image> <image-name>`
-![Alt text](image-5.png)
+![Alt text](images/image-5.png)
 Instead of volumes, we can use local folders for the purpose of testing.
 
 ### Networks
@@ -104,7 +104,14 @@ Since each container has its own network, we cant directly interact with another
 1. First create a network - `docker network create <network-name>`
 2. List networks - `docker network ls`
 3. When running a container, give it a name and attach it to a network - `docker run -p 3000:3000 --name <name> --network <network-name> <image-name>`
-4. Now, we have a database and a backend container, in backend container we connect to db using the following code (mongo example) - `mongoose.connect("mongodb://localhost:27017/db, {});`. This needs to be replaced with `mongoose.connect("mongodb://<container-name>:27017/db, {});` if they are in the same network.  
+4. Now, we have a database and a backend container, in backend container we connect to db using the following code (mongo example) - `mongoose.connect("mongodb://localhost:27017/db, {});`. This needs to be replaced with `mongoose.connect("mongodb://<container-name>:27017/db, {});` if they are in the same network. 
+![Alt text](images/image-9.png) 
+![Alt text](images/image-11.png)
+
+### Dependencies
+1. When running multiple containers, we need to make sure that the containers are run in the correct order. For this, we can use `depends_on` in docker-compose.yaml.
+![Alt text](images/image-10.png)
+
 
 
 ## Environment Variables
@@ -154,6 +161,19 @@ volumes:
 2. To run this, run `docker-compose up`  
 3. When we use docker-compose, all the services inside it are already connected by a network
 4. The build command in docker-compose.yaml is used to build the image from the dockerfile in the directory path given. `.` means the current directory.
+5. We can setup resource limits by:
+![Alt text](images/image-6.png)
+6. We can setup environment variables by:
+![Alt text](images/image-7.png)
+7. These env variables can be overriden in the command line by `-e` flag.
+![Alt text](images/image-8.png)
+8. We can also add the env variable in the machine itself and access that variable using `${env-var-name}`. We can also put all these vars in a `.env` file and access them using `${env-var-name}`. Docker compose knows to look for these in the .env file. 
+
+## Container Registries
+1. These are central repositories where we can store our images.
+2. We have registries like dockerhub, AWS ECR, etc.
+3. Publish using:
+![Alt text](images/image-12.png)
 
 ## Docker Commands
 1. `docker info` - gives info about docker installation in the machine
