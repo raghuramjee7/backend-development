@@ -13,7 +13,7 @@
     3. Install OS, applications like dbs, caches, etc
     4. Cannot deploy source code
     5. Cannot build apps
-![Alt text](images/image-13.png)
+![Alt text](image-13.png)
 ![Alt text](image.png)
 4. The master node is called the control plane
 5. The worker nodes are called the data plane

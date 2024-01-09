@@ -14,7 +14,7 @@
 5. Fit more into the same host
 
 ## VM vs Container
-![Alt text](image.png)
+![Alt text](images/image.png)
 1. VM runs directly on the hardware, and OS is installed.
 2. Container images are run in memory. Compared to VM, containers dont need to boot, they run directly in host OS kernel. They use less memory and space.
 ![Alt text](images/image-1.png)
