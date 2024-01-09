@@ -1,0 +1,10 @@
+# this file is to create the config map for mongo db
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: mongo
+data:
+  # we will create this service
+  mongo-url: mongo-service

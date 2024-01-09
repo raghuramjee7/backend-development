@@ -1,0 +1,53 @@
+# this file is used to create deployment and service for mongo db
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  namespace: mongo
+spec:
+  replicas: 1
+  selector:
+    # all the pods that match to this label are a part of this deployment
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      # we can identify the pod by this label, labels is important for pods
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:5.0
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
+
+---
+
+# now we will create the service for mongo db
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  namespace: mongo
+spec:
+  selector:
+  # this should match which pods are attached to this service
+    app: mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      # targerport should be same as the container port
+      targetPort: 27017
