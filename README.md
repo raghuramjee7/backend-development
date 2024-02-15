@@ -6,3 +6,5 @@
 4. System Design
 5. NoSQL Databases
 6. Java and Spring Boot
+7. GoLang
+8. Rust
