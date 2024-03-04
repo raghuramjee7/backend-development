@@ -8,3 +8,4 @@
 6. Java and Spring Boot
 7. GoLang
 8. Rust
+9. SQL
